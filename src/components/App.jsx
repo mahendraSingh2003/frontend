@@ -4,19 +4,20 @@ import Footer from "./Footer";
 import Note from "./Note";
 import CreateArea from "./CreateArea";
 
+
 function App() {
   const [notes, setNotes] = useState([]);
-
+   const URL="https://backend-salf.onrender.com"
   // Fetch notes from backend
   useEffect(() => {
-    fetch("http://localhost:5000/notes")
+    fetch(`${URL}/notes`)
       .then((res) => res.json())
       .then((data) => setNotes(data));
   }, []);
 
   // Add note to backend
   function addNote(newNote) {
-    fetch("http://localhost:5000/notes", {
+    fetch(`${URL}/notes`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newNote),
@@ -28,7 +29,7 @@ function App() {
 
   // Delete note from backend
   function deleteNote(id) {
-    fetch(`http://localhost:5000/notes/${id}`, {
+    fetch(`${URL}/notes/${id}`, {
       method: "DELETE",
     }).then(() => {
       setNotes(notes.filter((note) => note.id !== id));
